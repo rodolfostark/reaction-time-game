@@ -14,6 +14,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void show_temp();
+
+private slots:
+    void on_BOTAOZINHO_clicked();
 
 private:
     Ui::MainWindow *ui;
