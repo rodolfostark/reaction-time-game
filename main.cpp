@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
     // criar item pra botar na cena (retangulo)
     MyRect * rect = new MyRect();
     rect->setRect(0,0,100,100);
+    rect->setBrush(Qt::yellow);
 
     // add item na cena
     scene->addItem(rect);
