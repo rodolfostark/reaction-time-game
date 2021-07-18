@@ -2,5 +2,4 @@
 
 Jogador::Jogador()
 {
-
 }

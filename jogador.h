@@ -1,6 +1,8 @@
 #ifndef JOGADOR_H
 #define JOGADOR_H
 
+#include "myrect.h"
+#include "mainwindow.h"
 
 class Jogador
 {

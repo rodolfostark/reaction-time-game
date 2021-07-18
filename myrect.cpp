@@ -40,14 +40,14 @@ void MyRect::pontuar(int botaoClicado)
     // Atribuir a pontuação
     if (mapaCoresSetas[botaoClicado] == brush().color()){
         std::cout << "Acertou otário!" << std::endl;
-        Jogador().pontuacao += 1;
+        Jogador::pontuacao += 1;
     }
     else {
         std::cout << "Errou otário!" << std::endl;
-        if (Jogador().pontuacao > 0)
-            Jogador().pontuacao -= 1;
+        if (Jogador::pontuacao > 0)
+            Jogador::pontuacao -= 1;
         else
-            Jogador().pontuacao = 0;
+            Jogador::pontuacao = 0;
     }
 }
 
