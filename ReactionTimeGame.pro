@@ -10,10 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    myrect.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    myrect.h
 
 FORMS += \
     mainwindow.ui
