@@ -73,14 +73,14 @@ void MyRect::pontuar(int botaoClicado)
     if (mapaCoresSetas[botaoClicado] == brush().color()){
         std::cout << "Acertou!" << std::endl;
         timeOut = main_timer->remainingTime();
-        tempos.append(2500 - timeOut);
+        tempos.append(main_timer->interval() - timeOut);
 
         pontuacao++;
     }
     else {
         std::cout << "Errou!" << std::endl;
         timeOut = main_timer->remainingTime();
-        tempos.append(2500 - timeOut);
+        tempos.append(main_timer->interval() - timeOut);
 
         if (pontuacao > 0)
             pontuacao--;
