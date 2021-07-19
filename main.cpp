@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "jogador.h"
 
+#include <QLabel>
 #include <QLocale>
 #include <QTranslator>
 #include <QApplication>
@@ -25,20 +26,24 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    // criar cena
+    // Criar a cena.
     QGraphicsScene *cena = new QGraphicsScene();
+    cena->setSceneRect(0, 0, 400, 400);
+    // Criar a label.
+    QLabel *label = new QLabel("Pontuacao:");
+    label->setGeometry(200, 0, 100, 50);
     // criar item pra botar na cena (retangulo)
-    MyRect *retangulo = new MyRect();
+    MyRect *retangulo = new MyRect(label);
     retangulo->setRect(0, 0, 100, 100);
-    retangulo->setBrush(Qt::yellow);
     // add item na cena
     cena->addItem(retangulo);
+    cena->addWidget(label);
     // fazer rect ficar focado (para receber key checks)
     retangulo->setFlag(QGraphicsItem::ItemIsFocusable);
     retangulo->setFocus();
     // add view
     QGraphicsView *view = new QGraphicsView(cena);
-    view->setGeometry(0, 0, 400, 400);
+    //view->setGeometry(0, 0, 400, 400);
     view->show();
 
     return a.exec();

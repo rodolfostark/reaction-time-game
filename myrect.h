@@ -1,8 +1,10 @@
 #ifndef MYRECT_H
 #define MYRECT_H
 
-#include <QGraphicsRectItem>
+#include <QTimer>
+#include <QLabel>
 #include <QObject>
+#include <QGraphicsRectItem>
 
 class MyRect: public QObject,
         public QGraphicsRectItem
@@ -10,6 +12,7 @@ class MyRect: public QObject,
     Q_OBJECT
 public:
     MyRect();
+    MyRect(QLabel *label);
     void keyPressEvent(QKeyEvent * event);
     QVector<QColor> cores = {Qt::red, Qt::blue, Qt::green, Qt::magenta};
     // Vermelho = ->; Verde = ^; Azul = <-; Magenta v.
@@ -18,6 +21,9 @@ public:
                                         {Qt::Key_Left, Qt::blue},
                                         {Qt::Key_Down, Qt::magenta}};
     void pontuar(int botaoClicado);
+    QLabel *label;
+    QTimer *main_timer;
+    int pontuacao = 0;
 public slots:
     void reDraw();
 };

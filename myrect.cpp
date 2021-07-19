@@ -1,21 +1,30 @@
 #include "myrect.h"
 #include "jogador.h"
 
-#include <QTimer>
 #include <QBrush>
 #include <QDebug>
 #include <QKeyEvent>
 
 #include <random>
 #include <iostream>
+#include <unistd.h>
 #include <algorithm>
 
 MyRect::MyRect()
 {
-    QTimer *main_timer = new QTimer();
+    main_timer = new QTimer();
     // Conectar o timer com o método redraw.
     connect(main_timer, SIGNAL(timeout()), this, SLOT(reDraw()));
     main_timer->start(2000);
+}
+
+MyRect::MyRect(QLabel *label)
+{
+    this->label = label;
+    main_timer = new QTimer();
+    // Conectar o timer com o método redraw.
+    connect(main_timer, SIGNAL(timeout()), this, SLOT(reDraw()));
+    main_timer->start(2500);
 }
 
 void MyRect::keyPressEvent(QKeyEvent *event)
@@ -26,7 +35,7 @@ void MyRect::keyPressEvent(QKeyEvent *event)
 void MyRect::reDraw()
 {
     int offset_x = rand() % 300 + 1;
-    int offset_y = rand() % 300 + 1;
+    int offset_y = (rand() % 200 + 1) + 100;
     setPos(offset_x, offset_y);
     int posicaoDaCor = rand() % cores.size();
     setBrush(cores[posicaoDaCor]);
@@ -40,14 +49,19 @@ void MyRect::pontuar(int botaoClicado)
     // Atribuir a pontuação
     if (mapaCoresSetas[botaoClicado] == brush().color()){
         std::cout << "Acertou otário!" << std::endl;
-        Jogador::pontuacao += 1;
+        pontuacao += 1;
     }
     else {
         std::cout << "Errou otário!" << std::endl;
-        if (Jogador::pontuacao > 0)
-            Jogador::pontuacao -= 1;
+        if (pontuacao > 0)
+            pontuacao -= 1;
         else
-            Jogador::pontuacao = 0;
+            pontuacao = 0;
     }
+    QString pontuacaoString = QString::number(pontuacao);
+    label->setText("Pontuação: " + pontuacaoString);
+    int timeOut = main_timer->remainingTime();
+    qDebug() << "Time out: " << timeOut;
+    usleep(timeOut * 1000);
 }
 
