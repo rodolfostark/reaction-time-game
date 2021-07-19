@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     cena->setSceneRect(0, 0, 400, 400);
     // Criar a label.
     QLabel *label = new QLabel("Pontuacao:");
-    label->setGeometry(200, 0, 100, 50);
+    label->setGeometry(200, 0, 300, 50);
     // criar item pra botar na cena (retangulo)
     MyRect *retangulo = new MyRect(label);
     retangulo->setRect(0, 0, 100, 100);

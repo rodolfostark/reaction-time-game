@@ -23,12 +23,14 @@ MyRect::MyRect(QLabel *label)
     this->label = label;
     main_timer = new QTimer();
     // Conectar o timer com o método redraw.
+    connect(main_timer, SIGNAL(timeout()), this, SLOT(moscouVei()));
     connect(main_timer, SIGNAL(timeout()), this, SLOT(reDraw()));
     main_timer->start(2500);
 }
 
 void MyRect::keyPressEvent(QKeyEvent *event)
 {
+    reagiu = true;
     pontuar(event->key());
 }
 
@@ -39,6 +41,21 @@ void MyRect::reDraw()
     setPos(offset_x, offset_y);
     int posicaoDaCor = rand() % cores.size();
     setBrush(cores[posicaoDaCor]);
+    reagiu = false;
+}
+
+void MyRect::moscouVei()
+{
+    if(!reagiu) {
+        if (pontuacao > 0 && (pontuacao - 2500) >= 0) {
+            pontuacao -= 2500;
+        } else {
+            pontuacao = 0;
+        }
+
+        qDebug() << "moscou vei";
+    }
+
 }
 
 void MyRect::pontuar(int botaoClicado)
@@ -47,21 +64,22 @@ void MyRect::pontuar(int botaoClicado)
     // Vermelho = ->; Verde = ^; Azul = <-; Magenta v.
     // Verificar qual era a cor/seta esperada e comparar a que de fato foi clicada
     // Atribuir a pontuação
+    int timeOut;
     if (mapaCoresSetas[botaoClicado] == brush().color()){
         std::cout << "Acertou otário!" << std::endl;
-        pontuacao += 1;
+        timeOut = main_timer->remainingTime();
+        pontuacao += timeOut;
     }
     else {
         std::cout << "Errou otário!" << std::endl;
-        if (pontuacao > 0)
-            pontuacao -= 1;
+        timeOut = main_timer->remainingTime();
+        if (pontuacao > 0 && (pontuacao - timeOut) >= 0)
+            pontuacao -= timeOut;
         else
             pontuacao = 0;
     }
     QString pontuacaoString = QString::number(pontuacao);
     label->setText("Pontuação: " + pontuacaoString);
-    int timeOut = main_timer->remainingTime();
-    qDebug() << "Time out: " << timeOut;
     usleep(timeOut * 1000);
 }
 

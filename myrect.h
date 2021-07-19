@@ -24,8 +24,10 @@ public:
     QLabel *label;
     QTimer *main_timer;
     int pontuacao = 0;
+    bool reagiu = false;
 public slots:
     void reDraw();
+    void moscouVei();
 };
 
 #endif // MYRECT_H
