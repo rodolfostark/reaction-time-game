@@ -22,9 +22,10 @@ MyRect::MyRect(QLabel *label, QLabel *label_t_reacao)
 
     main_timer = new QTimer();
     tempo_de_jogo = new QTimer();
-    // Conectar o timer com o método redraw.
+    // Conectar o timer com o método moscou e com redraw.
     connect(main_timer, SIGNAL(timeout()), this, SLOT(moscouVei()));
     connect(main_timer, SIGNAL(timeout()), this, SLOT(reDraw()));
+    // Conectar o timer tempo_de_jogo ao slot acabarJogo
     connect(tempo_de_jogo, SIGNAL(timeout()), this, SLOT(acabarJogo()));
     main_timer->start(2500);
     tempo_de_jogo->start(30000);    // 30s de tempos
@@ -70,14 +71,14 @@ void MyRect::pontuar(int botaoClicado)
     // Atribuir a pontuação
     int timeOut;
     if (mapaCoresSetas[botaoClicado] == brush().color()){
-        std::cout << "Acertou otário!" << std::endl;
+        std::cout << "Acertou!" << std::endl;
         timeOut = main_timer->remainingTime();
         tempos.append(2500 - timeOut);
 
         pontuacao++;
     }
     else {
-        std::cout << "Errou otário!" << std::endl;
+        std::cout << "Errou!" << std::endl;
         timeOut = main_timer->remainingTime();
         tempos.append(2500 - timeOut);
 
@@ -97,8 +98,6 @@ void MyRect::pontuar(int botaoClicado)
     QString tempoMedioReacaoString = QString::number(tempo_reacao);
     label->setText("Pontuação: " + pontuacaoString);
     label_t_reacao->setText("Reação Média: " + tempoMedioReacaoString + "ms");
-
-    setBrush(Qt::white);
 
     usleep(timeOut * 1000);
 }

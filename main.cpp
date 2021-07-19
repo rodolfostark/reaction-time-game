@@ -46,7 +46,6 @@ int main(int argc, char *argv[])
     // add view
     QGraphicsView *view = new QGraphicsView(cena);
 
-    //view->setGeometry(0, 0, 400, 400);
     view->show();
 
     return a.exec();
