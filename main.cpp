@@ -1,6 +1,3 @@
-#include "mainwindow.h"
-#include "jogador.h"
-
 #include <QLabel>
 #include <QLocale>
 #include <QTranslator>
@@ -9,9 +6,6 @@
 #include <QGraphicsScene>
 
 #include <myrect.h>
-#include <sys/time.h>
-
-int Jogador::pontuacao = 0;
 
 int main(int argc, char *argv[])
 {

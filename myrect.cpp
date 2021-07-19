@@ -1,6 +1,6 @@
 #include "myrect.h"
-#include "jogador.h"
 
+#include <QPen>
 #include <QBrush>
 #include <QDebug>
 #include <QKeyEvent>
@@ -43,6 +43,7 @@ void MyRect::reDraw()
     setPos(offset_x, offset_y);
     int posicaoDaCor = rand() % cores.size();
     setBrush(cores[posicaoDaCor]);
+    setPen(cores[posicaoDaCor]);
     reagiu = false;
 }
 
@@ -96,6 +97,8 @@ void MyRect::pontuar(int botaoClicado)
     QString tempoMedioReacaoString = QString::number(tempo_reacao);
     label->setText("Pontuação: " + pontuacaoString);
     label_t_reacao->setText("Reação Média: " + tempoMedioReacaoString + "ms");
+
+    setBrush(Qt::white);
 
     usleep(timeOut * 1000);
 }
