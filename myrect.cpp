@@ -47,13 +47,8 @@ void MyRect::reDraw()
 void MyRect::moscouVei()
 {
     if(!reagiu) {
-        if (pontuacao > 0 && (pontuacao - 2500) >= 0) {
-            pontuacao -= 2500;
-        } else {
-            pontuacao = 0;
-        }
-
-        qDebug() << "moscou vei";
+        if (pontuacao > 0)
+            pontuacao--;
     }
 
 }
@@ -68,16 +63,23 @@ void MyRect::pontuar(int botaoClicado)
     if (mapaCoresSetas[botaoClicado] == brush().color()){
         std::cout << "Acertou otário!" << std::endl;
         timeOut = main_timer->remainingTime();
-        pontuacao += timeOut;
+        tempos.append(2500 - timeOut);
+
+        pontuacao++;
     }
     else {
         std::cout << "Errou otário!" << std::endl;
         timeOut = main_timer->remainingTime();
-        if (pontuacao > 0 && (pontuacao - timeOut) >= 0)
-            pontuacao -= timeOut;
-        else
-            pontuacao = 0;
+        tempos.append(2500 - timeOut);
+
+        if (pontuacao > 0)
+            pontuacao--;
     }
+
+    // calcula a media dos tempos
+    for(auto tempo: tempos) {tempo_reacao += tempo;}
+    tempo_reacao = tempo_reacao/tempos.size();
+
     QString pontuacaoString = QString::number(pontuacao);
     label->setText("Pontuação: " + pontuacaoString);
     usleep(timeOut * 1000);

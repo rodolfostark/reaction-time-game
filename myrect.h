@@ -24,6 +24,8 @@ public:
     QLabel *label;
     QTimer *main_timer;
     int pontuacao = 0;
+    QVector<int> tempos;
+    int tempo_reacao = 0;
     bool reagiu = false;
 public slots:
     void reDraw();
