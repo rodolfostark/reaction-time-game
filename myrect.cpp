@@ -12,20 +12,22 @@
 
 MyRect::MyRect()
 {
-    main_timer = new QTimer();
-    // Conectar o timer com o método redraw.
-    connect(main_timer, SIGNAL(timeout()), this, SLOT(reDraw()));
-    main_timer->start(2000);
+
 }
 
-MyRect::MyRect(QLabel *label)
+MyRect::MyRect(QLabel *label, QLabel *label_t_reacao)
 {
     this->label = label;
+    this->label_t_reacao = label_t_reacao;
+
     main_timer = new QTimer();
+    tempo_de_jogo = new QTimer();
     // Conectar o timer com o método redraw.
     connect(main_timer, SIGNAL(timeout()), this, SLOT(moscouVei()));
     connect(main_timer, SIGNAL(timeout()), this, SLOT(reDraw()));
+    connect(tempo_de_jogo, SIGNAL(timeout()), this, SLOT(acabarJogo()));
     main_timer->start(2500);
+    tempo_de_jogo->start(30000);    // 30s de tempos
 }
 
 void MyRect::keyPressEvent(QKeyEvent *event)
@@ -51,6 +53,12 @@ void MyRect::moscouVei()
             pontuacao--;
     }
 
+}
+
+void MyRect::acabarJogo()
+{
+    sleep(5);
+    exit(0);
 }
 
 void MyRect::pontuar(int botaoClicado)
@@ -80,8 +88,15 @@ void MyRect::pontuar(int botaoClicado)
     for(auto tempo: tempos) {tempo_reacao += tempo;}
     tempo_reacao = tempo_reacao/tempos.size();
 
+    if(tempos.size() > 5) {
+        tempos.pop_front();
+    }
+
     QString pontuacaoString = QString::number(pontuacao);
+    QString tempoMedioReacaoString = QString::number(tempo_reacao);
     label->setText("Pontuação: " + pontuacaoString);
+    label_t_reacao->setText("Reação Média: " + tempoMedioReacaoString + "ms");
+
     usleep(timeOut * 1000);
 }
 

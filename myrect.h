@@ -12,7 +12,7 @@ class MyRect: public QObject,
     Q_OBJECT
 public:
     MyRect();
-    MyRect(QLabel *label);
+    MyRect(QLabel *label, QLabel *label_t_reacao);
     void keyPressEvent(QKeyEvent * event);
     QVector<QColor> cores = {Qt::red, Qt::blue, Qt::green, Qt::magenta};
     // Vermelho = ->; Verde = ^; Azul = <-; Magenta v.
@@ -22,14 +22,17 @@ public:
                                         {Qt::Key_Down, Qt::magenta}};
     void pontuar(int botaoClicado);
     QLabel *label;
+    QLabel *label_t_reacao;
     QTimer *main_timer;
+    QTimer *tempo_de_jogo;
     int pontuacao = 0;
-    QVector<int> tempos;
     int tempo_reacao = 0;
+    QVector<int> tempos;
     bool reagiu = false;
 public slots:
     void reDraw();
     void moscouVei();
+    void acabarJogo();
 };
 
 #endif // MYRECT_H

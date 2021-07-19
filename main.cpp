@@ -29,20 +29,29 @@ int main(int argc, char *argv[])
     // Criar a cena.
     QGraphicsScene *cena = new QGraphicsScene();
     cena->setSceneRect(0, 0, 400, 400);
+
     // Criar a label.
-    QLabel *label = new QLabel("Pontuacao:");
+    QLabel *label = new QLabel("Pontuação:");
+    QLabel *label_t_reacao = new QLabel("Reação Média:");
     label->setGeometry(200, 0, 300, 50);
+    label_t_reacao->setGeometry(200, 30, 300, 50);
+
     // criar item pra botar na cena (retangulo)
-    MyRect *retangulo = new MyRect(label);
+    MyRect *retangulo = new MyRect(label, label_t_reacao);
     retangulo->setRect(0, 0, 100, 100);
+
     // add item na cena
     cena->addItem(retangulo);
     cena->addWidget(label);
+    cena->addWidget(label_t_reacao);
+
     // fazer rect ficar focado (para receber key checks)
     retangulo->setFlag(QGraphicsItem::ItemIsFocusable);
     retangulo->setFocus();
+
     // add view
     QGraphicsView *view = new QGraphicsView(cena);
+
     //view->setGeometry(0, 0, 400, 400);
     view->show();
 
